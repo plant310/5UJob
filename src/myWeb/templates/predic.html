@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预测系统</title>
+     <link rel="stylesheet" href=" /static/css/predicstyle.css ">
+</head>
+<body>
+<div class="banner">
+    <img src="/static/images/predic2.png" alt=""  align="center" width="100%" height="100%">
+</div>
+<div class="box">
+    <div class="box1"><!--subnav-->
+        <ul>
+            <li><button>城市需求预测</button></li>
+            <li><button>薪资变化预测</button></li>
+            <li><button>专业排名预测</button></li>
+            <li><button>岗位排名预测</button></li>
+        </ul>
+    </div>
+    <div class="box2"><!--图表展示-->
+
+    </div>
+    <div class="box3"><!--个人中心部分-->
+        <div class="self">
+            <img src="/static/images/tou1.jpg" alt="" width="100%" height="100%" >
+        </div>
+        <div class="enter">
+            <a href="{% url 'selfcenter' %}">个人中心</a><!--进入个人中心-->
+        </div>
+        <div class="show"><!--热门招聘信息-->
+            <div class="show1"><h4>热门招聘信息</h4></div>
+            <div>
+                <ul>
+                    <li><a href="#">【TOP1】</a></li>
+                    <li><a href="#">【TOP2】</a></li>
+                    <li><a href="#">【TOP3】</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="return">
+    <a href="{% url 'index' %}"><img src="/static/images/shape1.png" align="center" width="13" height="10" ></a>
+</div>
+</body>
+</html>

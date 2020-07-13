@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分析系统</title>
+    <link rel="stylesheet" href=" /static/css/analystyle.css ">
+    <script type="text/javascript" src="http://lib.baomitu.com/jquery/latest/jquery.min.js"></script>
+    <script src="/static/js/echarts.min.js"></script>
+
+</head>
+<body>
+<div class="banner">
+    <img src="/static/images/analy1.png" alt=""  align="center" width="100%" height="100%">
+</div>
+<div class="box">
+    <div class="box1"><!--subnav-->
+        <ul>
+            <li><button onclick="getData('companySize')">企业分析</button></li>
+            <li><button onclick="getData('region_number')">地区分析</button></li>
+            <li><button>学历/经验分析</button></li>
+            <li><button>薪资水平分析</button></li>
+        </ul>
+    </div>
+    <div class="box2" id="box2" align="center"><!--图表展示-->
+        <h3>职责词云</h3>
+        <br/>
+        <img src="/static/images/cloudwords/python.png" width="80%" height="80%">
+    </div>
+    <div class="box3"><!--个人中心部分-->
+        <div class="self">
+            <img src="/static/images/tou1.jpg" alt="" width="100%" height="100%" >
+        </div>
+        <div class="enter">
+            <a href="{% url 'selfcenter' %}">个人中心</a><!--进入个人中心-->
+        </div>
+        <div class="show"><!--热门招聘信息-->
+            <div class="show1"><h4>热门招聘信息</h4></div>
+            <div>
+                <ul>
+                    <li><a href="#">【TOP1】</a></li>
+                    <li><a href="#">【TOP2】</a></li>
+                    <li><a href="#">【TOP3】</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="return">
+    <a href="{% url 'index' %}"><img src="/static/images/shape1.png" align="center" width="13" height="10" ></a>
+</div>
+<script type="text/javascript">
+        function getData(analysis_item) {
+            var dom=document.getElementById("box2");
+            var myChart=echarts.init(dom);
+            var option=null;
+            var post_data={
+                "type":analysis_item,
+                "pid":{{ pid }},
+            };
+            console.log(post_data);
+            $.ajax({
+                url: '/get_analysis/',
+                type: "POST",
+                data: post_data,
+                success: function (data) {
+                    res = JSON.parse(data);
+                    console.log(res.data_x);
+                    if(res['marks']==0){
+                        option = {
+                            title: {
+                                text: res['profession']+'岗位各公司规模总数分布条形图',
+                                left: 'center'
+                            },
+                            xAxis: {
+                                type: 'category',
+                                data: res.data_x,
+                            },
+                            yAxis: {
+                                type: 'value'
+                            },
+                            series: [{
+                                data: res.data_y,
+                                type: 'bar'
+                            }]
+                        };
+                        ;
+                        if (option && typeof option === "object") {
+                            myChart.setOption(option, true);
+                        }
+                    }else if(res['marks']==1){
+                        option = {
+                            title: {
+                                text: res['profession']+'岗位中各类型企业所占比例',
+                                left: 'center'
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: '{a} <br/>{b} : {c} ({d}%)'
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left',
+                                data: res.data_x,
+                            },
+                            series: [
+                                {
+                                    name: '访问来源',
+                                    type: 'pie',
+                                    radius: '55%',
+                                    center: ['50%', '60%'],
+                                    data: [
+                                        { value: 335, name: '直接访问' },
+                                        { value: 310, name: '邮件营销' },
+                                        { value: 234, name: '联盟广告' },
+                                        { value: 135, name: '视频广告' },
+                                        { value: 1548, name: '搜索引擎' }
+                                    ],
+                                    emphasis: {
+                                        itemStyle: {
+                                            shadowBlur: 10,
+                                            shadowOffsetX: 0,
+                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                        }
+                                    }
+                                }
+                            ]
+                        };
+                        ;
+                        if (option && typeof option === "object") {
+                            myChart.setOption(option, true);
+                        }
+                    }else if(res["marks"]==2){
+
+                    }else if(res["marks"]==3){
+
+                    }else if(res["marks"]==4){
+
+                    }else if(res["marks"]==5){
+
+                    }else if(res["marks"]==6){
+
+                    }else if(res["marks"]==7){
+
+                    }else{
+
+                    }
+                }
+            });
+        }
+</script>
+</body>
+</html>

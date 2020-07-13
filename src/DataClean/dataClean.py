@@ -24,6 +24,24 @@ def split_location(x):
         loc=x
     return loc
 
+def clean_people(x):
+    if x=="50-150人":
+        return "50-150"
+    elif x=="150-500人":
+        return "150-500"
+    elif x=="少于50人":
+        return "少于50"
+    elif x=="1000-5000人":
+        return "1000-5000"
+    elif x=="500-1000人":
+        return "500-1000"
+    elif x=="10000人以上":
+        return "大于10000"
+    elif x=="5000-10000人":
+        return "5000-10000"
+    else:
+        return np.nan
+
 def dataClean(filename):
     df = pd.read_csv(r"../DataGet/"+filename+".csv")
     # print(df.describe(include=['O']))
@@ -54,12 +72,14 @@ def dataClean(filename):
     employ['salay_max'] = salary.str[1].astype('int')
     employ['salay_mean'] = employ[['salay_min', 'salay_max']].mean(axis=1).astype('int')
     employ['city'] = employ['place'].apply(split_location)
+    #公司人员重构
+    employ['company_size']=employ['company_size'].apply(clean_people)
     # 岗位描述关键字筛选
     with open('stop_word.txt', 'r', encoding='UTF-8') as f:
         stopword = f.read()
 
     stopword = stopword.split()
-    stopword = stopword + ["任职", "职位", " "]
+    stopword = stopword + ["任职", "职位", " ","职责", "负责"]
     employ["point_information"] = employ["point_information"].str[2:-2].apply(lambda x: x.lower()).apply(
         lambda x: "".join(x)) \
         .apply(jieba.lcut).apply(lambda x: [i for i in x if i not in stopword])
@@ -69,7 +89,7 @@ def dataClean(filename):
         ['position', 'company', 'company_type', 'company_size', 'city', 'salay_min', 'salay_max', 'salay_mean',
          'education', 'work_experience', 'industry', 'point_information']]
     df_job.columns = ['工作', '公司', '公司性质', '公司规模', '城市', '最低薪', '最高薪', '平均薪', '学历', '工作经验', '行业', '职责']
-    to_file=filename+'_clean.csv'
+    to_file='cleanData/'+filename+'_clean.csv'
     df_job.to_csv(to_file,encoding="utf_8_sig")
 
 if __name__ == '__main__':

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="/static/css/centerstyle.css">
+</head>
+<body>
+<div class="box w">
+    <div class="box1">
+        <div>
+            <div class="change" title="更换头像"><img src="/static/images/tou1.jpg" alt="" width="100%" height="100%" align="center"></div>
+            <h3>红红红红绿</h3>
+        </div>
+    </div>
+    <div class="box2">
+        <h4>编辑个人资料</h4>
+        <div class="reg_form"><!--修改个人资料部分--->
+            <ul>
+                <li><label for="name">昵&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 称：</label><input type="text" value="红红红红绿" id="name"></li>
+                <li><label for="sex">性&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 别：</label><input type="text" value="default" id="sex"></li>
+                <li><label for="birth">出生年月：</label><input type="text" value="default" id="birth"></li>
+                <li><label for="email">电子邮件：</label><input type="text" value="default" id="email"></li>
+                <li><label for="gra">毕业院校：</label><input type="text" value="default" id="gra"></li>
+                <li><label for="time">工作时长：</label><input type="text" value="default" id="time"></li>
+            </ul>
+            <button type="submit">确认修改</button>
+        </div>
+    </div>
+    <div class="box3">
+        <h4>收藏列表</h4>
+        <div class="collect">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+    <div class="return">
+        <a href="{% url 'index' %}"><img src="/static/images/shape1.png" align="center" width="13" height="10" ></a>
+    </div>
+</div>
+
+</body>
+</html>
