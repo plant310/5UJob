@@ -1,0 +1,22 @@
+body {
+    /*css3抗锯齿形，让文字显示得更加清晰*/
+    -webkit-font-smoothing: antialiased;
+    background-color: #e8e8f8;
+}
+/*取消全局边界*/
+* {
+    margin: 0;
+    padding: 0;
+}
+/*取消li的排序点*/
+li {
+    list-style: none;
+}
+/*取消a的下划线*/
+a {
+    text-decoration: none;
+}
+/*当鼠标经过按钮时，鼠标变小手，示意能点击*/
+button {
+    cursor: pointer;
+}

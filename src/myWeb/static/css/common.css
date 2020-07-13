@@ -1,0 +1,56 @@
+.box3 {
+    float: left;
+    width: 250px;
+    margin-left: 25px;
+    background-color: #55585a;
+}
+.self {
+    width: 100px;
+    height: 100px;
+    margin: 10px auto;
+    background-color: #fff;
+    border-radius: 50px;
+}
+.box3 .self img {
+    border-radius: 50px;
+}
+.enter a {
+    display: block;
+    width: 150px;
+    height: 40px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 40px;
+    margin: 20px auto;
+    text-align: center;
+    background-color: #3e95ff;
+    border-radius: 10px;
+}
+.enter a:hover {
+    background-color: #ff6700;
+}
+.show .show1 {
+    display: block;
+    width: 100px;
+    height: 40px;
+    color: white;
+    margin:0 10px;
+}
+.show .show2 ul li {
+    display: block;
+    color: white;
+    width: 235px;
+    height: 40px;
+    margin:0 10px;
+    font-size: 15px;
+    /*文字显示不开强制一行内显示*/
+    white-space: nowrap;
+    /*溢出的部分隐藏起来*/
+    overflow: hidden;
+    /*溢出的部分用省略号表示*/
+    text-overflow: ellipsis;
+}
+.show .show2 ul li a {
+    color: white;
+}

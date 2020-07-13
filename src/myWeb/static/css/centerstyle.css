@@ -1,12 +1,14 @@
-body {
-    background-color: #e8e8f8;
-}
-* {
-    margin: 0;
-    padding: 0;
-}
-li {
-    list-style: none;
+/*字体图标*/
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?4pips2');
+  src:  url('../fonts/icomoon.eot?4pips2#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?4pips2') format('truetype'),
+    url('../fonts/icomoon.woff?4pips2') format('woff'),
+    url('../fonts/icomoon.svg?4pips2#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
 }
 .w {
     width: 800px;
@@ -18,7 +20,7 @@ li {
     height: 200px;
     background-color: #fff;
     margin: 25px auto;
-    background-image: url("images/selfb.jpg");
+    background-image: url("../images/selfb.jpg");
     background-repeat: no-repeat;
     background-position: center top;
     align-content: center;
@@ -41,6 +43,11 @@ li {
     color: #55585a;
     margin: 0 5px;
 }
+.box .box2 h4::before {
+    content: '\e905';
+    padding-right: 2px;
+    font-family: 'icomoon';
+}
 .box .reg_form {
     margin-top: 5px;
     height: 300px;
@@ -57,12 +64,16 @@ li {
     text-align: right;
 }
 .box .reg_form ul li input {
+    outline: none;
     color: #bfbfbf;
     width: 242px;
     height: 30px;
     border: 1px solid white;
     border-radius: 5px;
     padding-left: 15px;
+}
+input::placeholder {
+    color: #c5bfbf;
 }
 .box .reg_form button {
     color: white;
@@ -79,6 +90,11 @@ li {
 .box .box3 h4 {
     color: #55585a;
     margin: 20px auto 5px 5px;
+}
+.box .box3 h4::before {
+    content: '';
+    font-family: 'icomoon';
+    padding-right: 2px;
 }
 .box .box3 .collect {
     height: 300px;

@@ -1,23 +1,38 @@
-body {
-    background-color: #e8e8f8;
-}
-* {
-    margin: 0;
-    padding: 0;
-}
-/*取消全局边界*/
-li {
-    list-style: none;
-}
-/*取消li的排序点*/
-a {
-    text-decoration: none;
-}
-/*取消a的下划线*/
+
 .banner {
     height: 250px;
     background-color: gray;
     margin: 0 auto;
+}
+.search {
+    width: 250px;
+    height: 30px;
+    margin: 10px 0 0 10px;
+}
+.search input {
+    float: left;
+    width: 215px;
+    height: 30px;
+    color: #bfbfbf;
+    font-size: 14px;
+    border: none;
+    text-decoration: none;
+    padding-left: 5px;
+}
+input::placeholder {
+    color: #c5bfbf;
+}
+.search button {
+    float: left;
+    width: 35px;
+    height: 30px;
+    text-align: center;
+    margin: 0 auto;
+    background-color: #3e95ff;
+    border: none;
+}
+.search input,button:focus {
+    outline-color: #3e95ff;
 }
 .box {
     width: 100%;
@@ -29,13 +44,17 @@ a {
 .box1 ul li button {
     width: 250px;
     height: 80px;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-left: 10px;
+    margin-bottom: 10px;
     background-color: rgba(85, 88, 90,0.8);
     color: white;
     font-size: 20px;
     font-weight: bold;
     border: none;
+}
+.box1 ul li:first-child {
+    margin-top: 0;
 }
 .box1 ul li button:hover {
     background-color: #44484e
@@ -45,56 +64,16 @@ a {
     width: 700px;
     height: 380px;
     background-color: #fff;
-    margin-left: 25px;
-    margin-top: 20px;
+    margin-left: 20px;
+    margin-top: 10px;
 }
 .box3 {
-    float: left;
-    width: 250px;
     height: 360px;
-    margin-left: 25px;
-    margin-top: 30px;
+    margin-left: 20px;
+    margin-top: 20px;
     background-color: rgba(85, 88, 90,0.8);
 }
-.self {
-    width: 100px;
-    height: 100px;
-    margin: 10px auto;
-    background-color: #fff;
-    border-radius: 50px;
-}
-.box3 .self img {
-    border-radius: 50px;
-}
-.enter a {
-    display: block;
-    width: 150px;
-    height: 40px;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 40px;
-    margin: 20px auto;
-    text-align: center;
-    background-color: #3e95ff;
-    border-radius: 10px;
-}
-.enter a:hover {
-    background-color: #ff6700;
-}
-.show .show1 {
-    display: block;
-    width: 100px;
-    height: 40px;
-    color: white;
-    margin:0 10px;
-}
-.show ul li {
-    width: 100px;
-    height: 40px;
-    color: white;
-    margin:0 10px;
-}
+
 .return a {
     display: block;
     width: 25px;

@@ -2,12 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>预测系统</title>
-     <link rel="stylesheet" href=" /static/css/predicstyle.css ">
+    <title>5U-预测系统</title>
+    <link rel="shortcut icon" href=" ../static/images/icoo.ico" />
+    <link rel="stylesheet" href=" ../static/css/initial.css ">
+    <link rel="stylesheet" href=" ../static/css/predicstyle.css ">
+    <link rel="stylesheet" href=" ../static/css/common.css ">
 </head>
 <body>
 <div class="banner">
     <img src="/static/images/predic2.png" alt=""  align="center" width="100%" height="100%">
+</div>
+<!--search模块-->
+<div class="search">
+    <input type="search" placeholder="请输入关键词">
+    <button><img src="../static/images/Rectangle4.png" alt="" width="12.5" height="12" align="center"></button>
+</div>
 </div>
 <div class="box">
     <div class="box1"><!--subnav-->
@@ -28,13 +37,14 @@
         <div class="enter">
             <a href="{% url 'selfcenter' %}">个人中心</a><!--进入个人中心-->
         </div>
-        <div class="show"><!--热门招聘信息-->
+        <!--热门招聘信息-->
+        <div class="show">
             <div class="show1"><h4>热门招聘信息</h4></div>
-            <div>
+            <div class="show2">
                 <ul>
-                    <li><a href="#">【TOP1】</a></li>
-                    <li><a href="#">【TOP2】</a></li>
-                    <li><a href="#">【TOP3】</a></li>
+                    <li><a href="#">【TOP1】这里是热度第一的招聘信息</a></li>
+                    <li><a href="#">【TOP2】这里是热度第二的招聘信息</a></li>
+                    <li><a href="#">【TOP3】这里是热度第三的招聘信息</a></li>
                 </ul>
             </div>
         </div>

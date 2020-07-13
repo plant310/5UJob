@@ -2,23 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>分析系统</title>
+    <title>5U-分析系统</title>
+    <link rel="shortcut icon" href="/static/images/icoo.ico" />
+    <link rel="stylesheet" href=" /static/css/initial.css ">
     <link rel="stylesheet" href=" /static/css/analystyle.css ">
+    <link rel="stylesheet" href=" /static/css/common.css ">
     <script type="text/javascript" src="http://lib.baomitu.com/jquery/latest/jquery.min.js"></script>
     <script src="/static/js/echarts.min.js"></script>
-
 </head>
 <body>
 <div class="banner">
     <img src="/static/images/analy1.png" alt=""  align="center" width="100%" height="100%">
 </div>
-<div class="box">
-    <div class="box1"><!--subnav-->
-        <ul>
-            <li><button onclick="getData('companySize')">企业分析</button></li>
-            <li><button onclick="getData('region_number')">地区分析</button></li>
-            <li><button>学历/经验分析</button></li>
-            <li><button>薪资水平分析</button></li>
+<div class="box clearfix">
+    <!--subnav-->
+    <div class="box1 clearfix">
+        <ul class="nav">
+            <li class=" tou nav1">
+                <a href="#" class="prior one tag">企业分析</a>
+                <ul>
+                    <li><a href="javascript:void(0);" onclick="getData('companySize')">企业规模</a></li>
+                    <li><a href="javascript:void(0);" onclick="getData('companyType')">企业类型</a></li>
+                </ul>
+            </li>
+            <li class=" tou nav2">
+                <a href="javascript:void(0);" onclick="getData('region_number')" class="prior">地区分析</a>
+            </li>
+            <li class="tou nav3">
+                <a href="#" class="prior tag">学历/经验分析</a>
+                <ul >
+                    <li><a href="javascript:void(0);" onclick="getData('education_number')">学历分析</a></li>
+                    <li><a href="javascript:void(0);" onclick="getData('experience_number')">经验分析</a></li>
+                </ul>
+            </li>
+            <li class="tou nav4">
+                <a href="#" class="prior tag">薪资水平分析</a>
+                <ul>
+                    <li><a href="javascript:void(0);" onclick="getData('education_salary')">薪资与学历关系</a></li>
+                    <li><a href="javascript:void(0);" onclick="getData('experience_salary')">薪资与经验关系</a></li>
+                    <li><a href="javascript:void(0);" onclick="getData('region_salary')">薪资与岗位需求关系</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
     <div class="box2" id="box2" align="center"><!--图表展示-->
@@ -33,13 +57,16 @@
         <div class="enter">
             <a href="{% url 'selfcenter' %}">个人中心</a><!--进入个人中心-->
         </div>
-        <div class="show"><!--热门招聘信息-->
-            <div class="show1"><h4>热门招聘信息</h4></div>
-            <div>
+        <!--热门招聘信息-->
+        <div class="show">
+            <div class="show1">
+                <h4>热门招聘信息</h4>
+            </div>
+            <div class="show2">
                 <ul>
-                    <li><a href="#">【TOP1】</a></li>
-                    <li><a href="#">【TOP2】</a></li>
-                    <li><a href="#">【TOP3】</a></li>
+                    <li><a href="#">【TOP1】这里是热度第一的招聘信息</a></li>
+                    <li><a href="#">【TOP2】这里是热度第二的招聘信息</a></li>
+                    <li><a href="#">【TOP3】这里是热度第三的招聘信息</a></li>
                 </ul>
             </div>
         </div>
@@ -49,7 +76,8 @@
     <a href="{% url 'index' %}"><img src="/static/images/shape1.png" align="center" width="13" height="10" ></a>
 </div>
 <script type="text/javascript">
-        function getData(analysis_item) {
+
+    function getData(analysis_item) {
             var dom=document.getElementById("box2");
             var myChart=echarts.init(dom);
             var option=null;
@@ -147,6 +175,16 @@
                 }
             });
         }
+    var nav=document.querySelector('.nav')
+    var lis=nav.children;
+    for(var i=0;i<lis.length;i++) {
+        lis[i].onmouseover= function () {
+            this.children[1].style.display = 'block';
+        }
+        lis[i].onmouseout= function () {
+            this.children[1].style.display = 'none';
+        }
+    }
 </script>
 </body>
 </html>

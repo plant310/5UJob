@@ -118,72 +118,47 @@ def getAnalysis(request):
         else:
             return HttpResponse('getAnalysis error!')
 
-
-
-def function2(request,argument1,argument2,argument3):
+def forecast(request):
     data_x=[]
     data_y=[]
     data_z=[]
-    data_a=[]
-    #绘制图三，
-    if ( (argument2=="region")&(argument3=="number")):
-        list = Region.objects.all()
+    if (request.POST.get.biaoming)=="地区预测":
+        list=表名.objects.all()
         for row in list:
-            if (row.profession_id==int(argument1)):
+            if row.profession_id==(request.POST.get.zhiyeming):
+                #返回地区名，日期和条目数
                 data_x.append(row.region)
+                data_y.append(row.date)
+                data_z.append(row.number)
+        return HttpResponse(json.Deserializer(data_x,data_y,data_z))
+    elif (request.POST.get.biaoming)=="薪水预测":
+        list=表名.objects.all()
+        for row in list:
+            if row.profession_id==(request.POST.get.zhiyeming):
+                #返回日期和条目数
+                data_x.append(row.date)
                 data_y.append(row.number)
-        return HttpResponse(data_x+data_y)
-        #return render(request,"Run.html",{"masks":argument1,"data_x":data_x,"data_y":data_y})
-
-    elif ( (argument2=="region")&(argument3=="salary")):
-        list = Region.objects.all()
+        return HttpResponse(json.Deserializer(data_x,data_y))
+    elif (request.POST.get.biaoming)=="专业预测":
+        '''
+        list=表名.objects.all()
         for row in list:
-            if(row.profession_id==int(argument1)):
-                data_x.append(row.region)
-                data_y.append(row.lowest_salary)
-                data_z.append(row.highest_salary)
-        return HttpResponse(data_x+data_y+data_z)
-    # return render(request,"文件名.html",{"横坐标列表":data_x,"第一纵坐标列表":data_y,""})
-    elif ( (argument2=="education")&(argument3=="number")):
-        list = Education.objects.all()
+            if row.profession_id==(request.POST.get.zhiyeming):
+                #返回日期和条目数
+                data_x.append(row)
+                data_y.append(row)
+        '''
+        return HttpResponse("你所访问的功能待开发",status=404)
+
+    elif (request.POST.get.biaoming)=="岗位预测":
+        '''
+        list=表名.objects.all()
         for row in list:
-            if(row.profession_id==int(argument1)):
-                data_x.append(row.education)
-                data_y.append(row.number)
-        return HttpResponse(data_x+data_y)
-
-    elif ((argument2=="experience")&(argument3=="number")):
-        list =Experience.objects.all()
-        for row in list:
-            if(row.profession_id==int(argument1)):
-                data_x.append(row.experiene)
-                data_y.append(row.number)
-        return HttpResponse(data_x+data_y)
-
-    elif ((argument2=="education")&(argument3=="salary")):
-        list =Education.objects.all()
-        for row in list:
-            if(row.profession_id==int(argument1)):
-                data_x.append(row.education)
-                data_y.append(row.avg_salary)
-                data_z.append(row.highest_salary)
-                data_a.append((row.lowest_salary))
-        return HttpResponse(data_x+data_y+data_z+data_a)
-
-    elif (argument2.equal("experience")&argument3.equal("salary")):
-        list =Experience.objects.all()
-        for row in list :
-            if(row.profession_id==int(argument1)):
-                data_x.append(row.experiene)
-                data_y.append(row.avg_salary)
-                data_z.append(row.highest_salary)
-                data_a.append(row.lowest_salary)
-        return HttpResponse(data_x+data_y+data_z+data_a)
-    else:
-        return HttpResponse("function2 error")
-
-
-
-def forecast(request,argument):
-    if ():
-        print("return data")
+            if row.profession_id==(request.POST.get.zhiyeming):
+                返回日期h
+                data_x.append(row)
+                data_y.append(row)
+        '''
+        return HttpResponse("你所访问的功能待开发",status=404)
+    else :
+        return HttpResponse("你所访问的页面不存在",status=404)
