@@ -48,7 +48,7 @@
     <div class="box2" id="box2" align="center"><!--图表展示-->
         <h3>职责词云</h3>
         <br/>
-        <img src="/static/images/cloudwords/python.png" width="80%" height="80%">
+        <img src="/static/images/cloudwords/{{ pid }}.png" width="80%" height="80%">
     </div>
     <div class="box3"><!--个人中心部分-->
         <div class="self">
@@ -73,7 +73,7 @@
     </div>
 </div>
 <div class="return">
-    <a href="{% url 'index' %}"><img src="/static/images/shape1.png" align="center" width="13" height="10" ></a>
+    <a href="{% url 'index' %}"></a>
 </div>
 <script type="text/javascript">
 
@@ -81,11 +81,12 @@
             var dom=document.getElementById("box2");
             var myChart=echarts.init(dom);
             var option=null;
+            var i;
+            var newData=[];
             var post_data={
                 "type":analysis_item,
                 "pid":{{ pid }},
             };
-            console.log(post_data);
             $.ajax({
                 url: '/get_analysis/',
                 type: "POST",
@@ -97,52 +98,80 @@
                         option = {
                             title: {
                                 text: res['profession']+'岗位各公司规模总数分布条形图',
-                                left: 'center'
+                                left: 'center',
+                                top:10,
+                                textStyle: {
+                                    fontWeight: 'normal',              //标题颜色
+                                    color: '#666666',
+                                },
                             },
-                            xAxis: {
-                                type: 'category',
-                                data: res.data_x,
+                            xAxis: [
+                                {
+                                    type: 'category',
+                                    data: res.data_x,
+                                }
+                            ],
+                            tooltip: {
+                                trigger: 'axis'
                             },
-                            yAxis: {
-                                type: 'value'
+                            toolbox: {
+                                show: true,
+                                feature: {
+                                    dataView: {show: true, readOnly: false},
+                                    magicType: {show: true, type: ['line', 'bar']},
+                                    restore: {show: true},
+                                    saveAsImage: {show: true}
+                                }
                             },
-                            series: [{
-                                data: res.data_y,
-                                type: 'bar'
-                            }]
+                            yAxis: [
+                                {
+                                    type: 'value',
+                                    name:  '企业数目 /家',
+                                }
+                            ],
+                            series: [
+                                {
+                                    color:'#0099CC',
+                                    name: '企业数目',
+                                    type: 'bar',
+                                    data: res.data_y,
+                                }
+                            ]
                         };
                         ;
                         if (option && typeof option === "object") {
                             myChart.setOption(option, true);
                         }
                     }else if(res['marks']==1){
+                        for(i=0;i<res.data_x.length;i++){
+                            newData.push({value:res.data_y[i],name:res.data_x[i]});
+                        }
                         option = {
                             title: {
                                 text: res['profession']+'岗位中各类型企业所占比例',
-                                left: 'center'
+                                left: 'center',
+                                padding: 15,
+                                textStyle: {
+                                    fontWeight: 'normal',              //标题颜色
+                                    color: '#666666',
+                                },
                             },
                             tooltip: {
                                 trigger: 'item',
                                 formatter: '{a} <br/>{b} : {c} ({d}%)'
                             },
                             legend: {
-                                orient: 'vertical',
-                                left: 'left',
+                                left: 'center',
+                                top: 'bottom',
                                 data: res.data_x,
                             },
                             series: [
                                 {
-                                    name: '访问来源',
+                                    name:'企业类型',
                                     type: 'pie',
                                     radius: '55%',
-                                    center: ['50%', '60%'],
-                                    data: [
-                                        { value: 335, name: '直接访问' },
-                                        { value: 310, name: '邮件营销' },
-                                        { value: 234, name: '联盟广告' },
-                                        { value: 135, name: '视频广告' },
-                                        { value: 1548, name: '搜索引擎' }
-                                    ],
+                                    center: ['50%', '49%'],
+                                    data: newData,
                                     emphasis: {
                                         itemStyle: {
                                             shadowBlur: 10,
@@ -158,16 +187,384 @@
                             myChart.setOption(option, true);
                         }
                     }else if(res["marks"]==2){
-
+                        option = {
+                            title: {
+                                text: '地区分布图表',
+                                left: "center",
+                                top:10,
+                                textStyle: {
+                                    fontWeight: 'normal',              //标题颜色
+                                    color: '#666666',
+                                },
+                            },
+                            toolbox: {
+                                feature: {
+                                    magicType: {
+                                        type: ['stack', 'tiled']
+                                    },
+                                    dataView: {},
+                                    saveAsImage: {
+                                        pixelRatio: 2
+                                    }
+                                }
+                            },
+                            tooltip: {},
+                            xAxis: {
+                                data: res.data_x,
+                                splitLine: {
+                                    show: false
+                                }
+                            },
+                            yAxis: {
+                            },
+                            series: [{
+                                type: 'bar',
+                                data: res.data_y,
+                                color:'#FF9933',
+                                animationDelay: function (idx) {
+                                    return idx * 10 + 100;
+                                }
+                            }],
+                            animationEasing: 'elasticOut',
+                            animationDelayUpdate: function (idx) {
+                                return idx * 5;
+                            }
+                        };
+                        ;
+                        if (option && typeof option === "object") {
+                            myChart.setOption(option, true);
+                        }
                     }else if(res["marks"]==3){
-
+                        option = {
+                            title: {
+                                text: '薪资与地区的关系图表',
+                                left: "center",
+                                textStyle: {
+                                    fontWeight: 'normal',
+                                    color: '#666666',
+                                },
+                            },
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'cross',
+                                    label: {
+                                        backgroundColor: '#6a7985'
+                                    }
+                                }
+                            },
+                            legend: {
+                                data: [ '最高工资','最低工资'],
+                                top:'bottom',
+                            },
+                            toolbox: {
+                                feature: {
+                                    saveAsImage: {}
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '10%',
+                                containLabel: true
+                            },
+                            xAxis: [
+                                {
+                                    type: 'category',
+                                    boundaryGap: false,
+                                    data: res.data_x,
+                                }
+                            ],
+                            yAxis: [
+                                {
+                                    type: 'value',
+                                    name: '薪资 /元',
+                                }
+                            ],
+                            series: [
+                                {
+                                    name: '最低工资',
+                                    type: 'line',
+                                    stack: '总量',
+                                    areaStyle: {},
+                                    data: res.data_y,
+                                },
+                                {
+                                    name: '最高工资',
+                                    type: 'line',
+                                    stack: '总量',
+                                    label: {
+                                        normal: {
+                                            show: true,
+                                            position: 'top'
+                                        }
+                                    },
+                                    areaStyle: {},
+                                    data:  res.data_z,
+                                }
+                            ]
+                        };
+                        ;
+                        if (option && typeof option === "object") {
+                            myChart.setOption(option, true);
+                        }
                     }else if(res["marks"]==4){
-
+                        for(i=0;i<res.data_x.length;i++){
+                            newData.push({value:res.data_y[i],name:res.data_x[i]});
+                        }
+                        option = {
+                            title: {
+                                text: '学历分布图表',
+                                left: "center",
+                                top:10,
+                                textStyle: {
+                                    fontWeight: 'normal',              //标题颜色
+                                    color: '#666666',
+                                },
+                            },
+                            tooltip: {
+                                trigger: 'item',
+                                formatter: '{a} <br/>{b}: {c} ({d}%)'
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left:10,
+                                top: 'bottom',
+                                data: res.data_x,
+                            },
+                            series: [
+                                {
+                                    name: '学历分布',
+                                    type: 'pie',
+                                    radius: ['50%', '71%'],
+                                    avoidLabelOverlap: false,
+                                    label: {
+                                        show: false,
+                                        position: 'center'
+                                    },
+                                    emphasis: {
+                                        label: {
+                                            show: true,
+                                            fontSize: '30',
+                                            fontWeight: 'bold'
+                                        }
+                                    },
+                                    labelLine: {
+                                        show: false
+                                    },
+                                    data: newData,
+                                }
+                            ]
+                        };
+                        ;
+                        if (option && typeof option === "object") {
+                            myChart.setOption(option, true);
+                        }
                     }else if(res["marks"]==5){
+                        option = {
+                            title: {
+                                text: '工作经验分布图表',
+                                left: "center",
+                                top:10,
+                                textStyle: {
+                                    fontWeight: 'normal',              //标题颜色
+                                    color: '#666666',
+                                },
+                            },
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'shadow'
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '3%',
+                                containLabel: true
+                            },
+                            xAxis: {
+                            },
+                            yAxis: {
+                                type: 'category',
+                                data: res.data_x,
+                            },
+                            series: [
+                                {
+                                    color:'#00CC99',
+                                    type: 'bar',
+                                    data: res.data_y,
+                                }
+                            ]
+                        };
+                        ;
+                        if (option && typeof option === "object") {
+                            myChart.setOption(option, true);
+                        }
 
                     }else if(res["marks"]==6){
+                        option = {
+                            title: {
+                                text: '薪资与学历的关系图表',
+                                left: "center",
+                                textStyle: {
+                                    fontWeight: 'normal',              //标题颜色
+                                    color: '#666666',
+                                },
+                            },
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'cross',
+                                    label: {
+                                        backgroundColor: '#6a7985'
+                                    }
+                                }
+                            },
+                            legend: {
+                                data: ['平均工资', '最高工资','最低工资'],
+                                top:'bottom',
+                            },
+                            toolbox: {
+                                feature: {
+                                    saveAsImage: {}
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '10%',
+                                containLabel: true
+                            },
+                            xAxis: [
+                                {
+                                    type: 'category',
+                                    boundaryGap: false,
+                                    data: res.data_x,
+                                }
+                            ],
+                            yAxis: [
+                                {
+                                    type: 'value',
+                                    name: '薪资 /元',
+                                },
+                            ],
+                            series: [
+                                {
+                                    name: '平均工资',
+                                    type: 'line',
+                                    stack: '总量',
+                                    areaStyle: {},
+                                    data:  res.data_y,
+                                },
+                                {
+                                    name: '最低工资',
+                                    type: 'line',
+                                    stack: '总量',
+                                    areaStyle: {},
+                                    data:  res.data_a,
+                                },
+                                {
+                                    name: '最高工资',
+                                    type: 'line',
+                                    stack: '总量',
+                                    label: {
+                                        normal: {
+                                            show: true,
+                                            position: 'top'
+                                        }
+                                    },
+                                    areaStyle: {},
+                                    data:   res.data_z,
+                                }
+                            ]
+                        };
+                        ;
+                        if (option && typeof option === "object") {
+                            myChart.setOption(option, true);
+                        }
 
                     }else if(res["marks"]==7){
+                        option = {
+                            title: {
+                                text: '薪资与工作经验的关系图表',
+                                left: "center",
+                                textStyle: {
+                                    fontWeight: 'normal',              //标题颜色
+                                    color: '#666666',
+                                },
+                            },
+                            tooltip: {
+                                trigger: 'axis',
+                                axisPointer: {
+                                    type: 'cross',
+                                    label: {
+                                        backgroundColor: '#6a7985'
+                                    }
+                                }
+                            },
+                            legend: {
+                                data: ['平均工资', '最高工资','最低工资'],
+                                top:'bottom',
+                            },
+                            toolbox: {
+                                feature: {
+                                    saveAsImage: {}
+                                }
+                            },
+                            grid: {
+                                left: '3%',
+                                right: '4%',
+                                bottom: '10%',
+                                containLabel: true
+                            },
+                            xAxis: [
+                                {
+                                    type: 'category',
+                                    boundaryGap: false,
+                                    data:res.data_x,
+                                }
+                            ],
+                            yAxis: [
+                                {
+                                    type: 'value',
+                                    name: '薪资 /元',
+                                },
+                            ],
+                            series: [
+                                {
+                                    name: '平均工资',
+                                    type: 'line',
+                                    stack: '总量',
+                                    areaStyle: {},
+                                    data: res.data_y,
+                                },
+                                {
+                                    name: '最低工资',
+                                    type: 'line',
+                                    stack: '总量',
+                                    areaStyle: {},
+                                    data: res.data_a,
+                                },
+                                {
+                                    name: '最高工资',
+                                    type: 'line',
+                                    stack: '总量',
+                                    label: {
+                                        normal: {
+                                            show: true,
+                                            position: 'top'
+                                        }
+                                    },
+                                    areaStyle: {},
+                                    data: res.data_z,
+                                }
+                            ]
+                        };
+                        ;
+                        if (option && typeof option === "object") {
+                            myChart.setOption(option, true);
+                        }
 
                     }else{
 
