@@ -25,20 +25,374 @@
     <button><img src="/static/images/Rectangle4.png" alt="" width="12.5" height="12" align="center"></button>
 </div>
 <div class="box">
-    <div class="box1"><!--nav-->
+    <div class="box1">
         <div class="nav">
             <ul>
-{#                <li><a href="analysis.html">互联网<span> &gt </span></a></li>#}
-{#                <li><a href="{% url 'analysis' param='python' %}">互联网<span> &gt </span></a></li>#}
-                <li><a href="javascript:void(0);" onclick="goToDetail('python')">互联网<span> &gt </span></a></li>
-                <li><a href="analysis.html">金融<span> &gt </span></a></li>
-                <li><a href="analysis.html">房地产/建筑<span> &gt </span></a></li>
-                <li><a href="analysis.html">贸易/零售/物流<span> &gt </span></a></li>
-                <li><a href="analysis.html">教育/传媒/广告<span> &gt </span></a></li>
-                <li><a href="analysis.html">服务业<span> &gt </span></a></li>
-                <li><a href="analysis.html">市场/销售<span> &gt </span></a></li>
-                <li><a href="analysis.html">人事/财务/行政<span> &gt </span></a></li>
-                <li><a href="analysis.html">全部职类<span> &gt </span></a></li>
+                <li class="job-nav__class" onmouseover="javascript:showInfo(0)" onmouseout="hiddenInfo(0)">
+                    <a class="job-nav__class__title">互联网<span> &gt </span></a>
+                    <div class="pop" id="IT">
+                        <div class="container">
+                        <h5>互联网IT</h5>
+                        <div class="list">
+                            <a href="javascript:void(0);" onclick="goToDetail('Python')" class="href">Python</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('PHP')" class="href">PHP</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('Web前端')" class="href">Web前端</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('UI设计师')" class="href">UI设计师</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('java开发')" class="href">java开发</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('Android')" class="href">Android</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('美工')" class="href">美工</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('深度学习')" class="href">深度学习</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('算法工程师')" class="href">算法工程师</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('Hadoop')" class="href">Hadoop</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('Node.js')" class="href">Node.js</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('数据开发')" class="href">数据开发</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('数据分析师')" class="href">数据分析师</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('数据架构')" class="href">数据架构</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('人工智能')" class="href">人工智能</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('区块链')" class="href">区块链</a>
+                        </div>
+                            <div class="list">
+                            <a href="javascript:void(0);" onclick="goToDetail('电气工程师')" class="href">电气工程师</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('电子工程师')" class="href">电子工程师</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('PLC')" class="href">PLC</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('测试工程师')" class="href">测试工程师</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('设备工程师')" class="href">设备工程师</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('硬件工程师')" class="href">硬件工程师</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('结构工程师')" class="href">结构工程师</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('工艺工程师')" class="href">工艺工程师</a>
+                        </div>
+                            <div class="list">
+                            <a href="javascript:void(0);" onclick="goToDetail('产品经理')" class="href">产品经理</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('新媒体运营')" class="href">新媒体运营</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('运营专员')" class="href">运营专员</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('淘宝运营')" class="href">淘宝运营</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('天猫运营')" class="href">天猫运营</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('产品助理')" class="href">产品助理</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('产品运营')" class="href">产品运营</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('淘宝客服')" class="href">淘宝客服</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('游戏运营')" class="href">游戏运营</a>
+                            <a href="javascript:void(0);" onclick="goToDetail('编辑')" class="href">编辑</a>
+                        </div>
+                    </div>
+                    </div>
+                </li>
+                <li class="job-nav__class" onmouseover="javascript:showInfo(1)" onmouseout="hiddenInfo(1)">
+                    <a class="job-nav__class__title">金融<span> &gt </span></a>
+                    <div class="pop" id="finance" style="top: -40px">
+                        <div class="container">
+                        <h5>金融</h5>
+                        <div class="list">
+                            <a href="#" class="href">投资经理</a>
+                            <a href="#" class="href">风控</a>
+                            <a href="#" class="href">催收</a>
+                            <a href="#" class="href">银行柜员</a>
+                            <a href="#" class="href">银行营销</a>
+                            <a href="#" class="href">信审</a>
+                            <a href="#" class="href">信用卡</a>
+                            <a href="#" class="href">贷款</a>
+                            <a href="#" class="href">金融产品</a>
+                            <a href="#" class="href">汽车金融</a>
+                            <a href="#" class="href">金融研究</a>
+                        </div>
+                            <div class="list">
+                            <a href="#" class="href">证券</a>
+                            <a href="#" class="href">交易员</a>
+                            <a href="#" class="href">投资经理</a>
+                            <a href="#" class="href">期货</a>
+                            <a href="#" class="href">操盘手</a>
+                            <a href="#" class="href">基金</a>
+                            <a href="#" class="href">股票</a>
+                            <a href="#" class="href">投资顾问</a>
+                                <a href="#" class="href">信托</a>
+                                <a href="#" class="href">典当</a>
+                                <a href="#" class="href">担保</a>
+                                <a href="#" class="href">信贷</a>
+                                <a href="#" class="href">权证</a>
+                        </div>
+                            <div class="list">
+                            <a href="#" class="href">财产保险</a>
+                            <a href="#" class="href">保险内勤</a>
+                            <a href="#" class="href">理赔</a>
+                            <a href="#" class="href">精算师</a>
+                            <a href="#" class="href">保险销售</a>
+                            <a href="#" class="href">理财顾问</a>
+                            <a href="#" class="href">查勘定损</a>
+                            <a href="#" class="href">车险</a>
+                        </div>
+                    </div>
+                    </div>
+                </li>
+                <li class="job-nav__class" onmouseover="javascript:showInfo(2)" onmouseout="hiddenInfo(2)">
+                    <a class="job-nav__class__title">房地产/建筑<span> &gt </span></a>
+                    <div class="pop" id="asset" style="top: -80px">
+                        <div class="container">
+                        <h5>房地产/建筑</h5>
+                        <div class="list">
+                            <a href="#" class="href">土建工程师</a>
+                            <a href="#" class="href">施工员</a>
+                            <a href="#" class="href">资料员</a>
+                            <a href="#" class="href">预算员</a>
+                            <a href="#" class="href">造价员</a>
+                            <a href="#" class="href">一级建造师</a>
+                            <a href="#" class="href">室内设计师</a>
+                            <a href="#" class="href">土建</a>
+                            <a href="#" class="href">暖通</a>
+                            <a href="#" class="href">项目经理</a>
+                            <a href="#" class="href">电气工程师</a>
+                            <a href="#" class="href">建筑设计</a>
+                        </div>
+                            <div class="list">
+                            <a href="#" class="href">置业顾问</a>
+                            <a href="#" class="href">房地产销售</a>
+                            <a href="#" class="href">房地产招商</a>
+                            <a href="#" class="href">开发报建</a>
+                            <a href="#" class="href">房地产策划</a>
+                            <a href="#" class="href">房地产开发</a>
+                            <a href="#" class="href">房地产评估</a>
+                            <a href="#" class="href">地产经纪</a>
+                        </div>
+                            <div class="list">
+                            <a href="#" class="href">物业</a>
+                            <a href="#" class="href">物业经理</a>
+                            <a href="#" class="href">保安</a>
+                            <a href="#" class="href">客服</a>
+                            <a href="#" class="href">物业管理</a>
+                            <a href="#" class="href">物业客服</a>
+                            <a href="#" class="href">电工</a>
+                            <a href="#" class="href">物业主管</a>
+                            <a href="#" class="href">物业维修</a>
+                            <a href="#" class="href">消防</a>
+                            <a href="#" class="href">客服主管</a>
+                            <a href="#" class="href">前台</a>
+                            <a href="#" class="href">文员</a>
+                            <a href="#" class="href">物业项目经理</a>
+                        </div>
+                    </div>
+                    </div>
+                </li>
+                <li class="job-nav__class" onmouseover="javascript:showInfo(3)" onmouseout="hiddenInfo(3)">
+                    <a class="job-nav__class__title">贸易/零售/物流<span> &gt </span></a>
+                    <div class="pop" id="trade" style="top: -120px">
+                        <div class="container">
+                        <h5>贸易/零售/物流</h5>
+                        <div class="list">
+                            <a href="#" class="href">采购</a>
+                            <a href="#" class="href">外贸</a>
+                            <a href="#" class="href">外贸业务员</a>
+                            <a href="#" class="href">外贸跟单</a>
+                            <a href="#" class="href">采购助理</a>
+                            <a href="#" class="href">外贸日语</a>
+                            <a href="#" class="href">采购专员</a>
+                            <a href="#" class="href">外贸英语</a>
+                            <a href="#" class="href">外贸助理</a>
+                            <a href="#" class="href">采购经理</a>
+                            <a href="#" class="href">买手</a>
+                        </div>
+                            <div class="list">
+                            <a href="#" class="href">导购</a>
+                            <a href="#" class="href">营业员</a>
+                            <a href="#" class="href">店长</a>
+                            <a href="#" class="href">收银员</a>
+                            <a href="#" class="href">销售</a>
+                            <a href="#" class="href">导购员</a>
+                            <a href="#" class="href">督导</a>
+                            <a href="#" class="href">客服</a>
+                            <a href="#" class="href">新零售产品</a>
+                            <a href="#" class="href">理货员</a>
+                        </div>
+                            <div class="list">
+                            <a href="#" class="href">供应链</a>
+                            <a href="#" class="href">物流专员</a>
+                            <a href="#" class="href">物流经理</a>
+                            <a href="#" class="href">物流运营</a>
+                            <a href="#" class="href">物流跟单</a>
+                            <a href="#" class="href">物流管理</a>
+                            <a href="#" class="href">物仓调度</a>
+                            <a href="#" class="href">货运代理</a>
+                            <a href="#" class="href">报检报关</a>
+                            <a href="#" class="href">仓储管理</a>
+                        </div>
+                    </div>
+                    </div>
+                </li>
+                <li class="job-nav__class" onmouseover="javascript:showInfo(4)" onmouseout="hiddenInfo(4)">
+                    <a class="job-nav__class__title">教育/传媒/广告<span> &gt </span></a>
+                    <div class="pop" id="edu" style="top: -160px">
+                        <div class="container">
+                        <h5>教育/传媒/广告</h5>
+                        <div class="list">
+                            <a href="#" class="href">教师</a>
+                            <a href="#" class="href">英语老师</a>
+                            <a href="#" class="href">课程顾问</a>
+                            <a href="#" class="href">英语</a>
+                            <a href="#" class="href">教务</a>
+                            <a href="#" class="href">美术老师</a>
+                            <a href="#" class="href">幼教</a>
+                            <a href="#" class="href">小学教师</a>
+                            <a href="#" class="href">班主任</a>
+                            <a href="#" class="href">助教</a>
+                        </div>
+                            <div class="list">
+                            <a href="#" class="href">编导</a>
+                            <a href="#" class="href">摄影师</a>
+                            <a href="#" class="href">编剧</a>
+                            <a href="#" class="href">摄影</a>
+                            <a href="#" class="href">后期制作</a>
+                            <a href="#" class="href">制片</a>
+                            <a href="#" class="href">记者</a>
+                            <a href="#" class="href">剪辑</a>
+                            <a href="#" class="href">化妆师</a>
+                        </div>
+                            <div class="list">
+                            <a href="#" class="href">广告创意</a>
+                            <a href="#" class="href">美术指导</a>
+                            <a href="#" class="href">策划经理</a>
+                            <a href="#" class="href">文案</a>
+                            <a href="#" class="href">广告制作</a>
+                            <a href="#" class="href">媒介</a>
+                            <a href="#" class="href">广告审核</a>
+                            <a href="#" class="href">平面设计</a>
+                            <a href="#" class="href">网页设计</a>
+                            <a href="#" class="href">插画师</a>
+                            <a href="#" class="href">工业设计</a>
+                            <a href="#" class="href">视觉设计</a>
+                        </div>
+                    </div>
+                    </div>
+                </li>
+                <li class="job-nav__class" onmouseover="javascript:showInfo(5)" onmouseout="hiddenInfo(5)">
+                    <a class="job-nav__class__title">服务业<span> &gt </span></a>
+                    <div class="pop" id="service" style="top: -200px">
+                        <div class="container">
+                        <h5>服务业</h5>
+                        <div class="list">
+                            <a href="#" class="href">美容师</a>
+                            <a href="#" class="href">美容学徒</a>
+                            <a href="#" class="href">美容导师</a>
+                            <a href="#" class="href">纹绣师</a>
+                            <a href="#" class="href">医美</a>
+                            <a href="#" class="href">美甲师</a>
+                            <a href="#" class="href">健身教练</a>
+                        </div>
+                            <div class="list">
+                            <a href="#" class="href">导游</a>
+                            <a href="#" class="href">旅游顾问</a>
+                            <a href="#" class="href">旅游计调</a>
+                            <a href="#" class="href">签证</a>
+                            <a href="#" class="href">旅游销售</a>
+                            <a href="#" class="href">票务</a>
+                            <a href="#" class="href">服务员</a>
+                            <a href="#" class="href">收银员</a>
+                            <a href="#" class="href">店长</a>
+                            <a href="#" class="href">酒店前台</a>
+                            <a href="#" class="href">酒店管理</a>
+                            <a href="#" class="href">餐饮管理</a>
+                            <a href="#" class="href">收银</a>
+                        </div>
+                            <div class="list">
+                            <a href="#" class="href">保安</a>
+                            <a href="#" class="href">保洁</a>
+                            <a href="#" class="href">月嫂</a>
+                            <a href="#" class="href">保姆</a>
+                            <a href="#" class="href">家政</a>
+                            <a href="#" class="href">婚礼策划</a>
+                            <a href="#" class="href">育婴师</a>
+                            <a href="#" class="href">催乳师</a>
+                            <a href="#" class="href">司机</a>
+                        </div>
+                    </div>
+                    </div>
+                </li>
+                <li class="job-nav__class" onmouseover="javascript:showInfo(6)" onmouseout="hiddenInfo(6)">
+                    <a class="job-nav__class__title">市场/销售<span> &gt </span></a>
+                    <div class="pop" id="market" style="top: -240px">
+                        <div class="container">
+                        <h5>市场/销售</h5>
+                        <div class="list">
+                            <a href="#" class="href">市场营销</a>
+                            <a href="#" class="href">市场策划</a>
+                            <a href="#" class="href">市场顾问</a>
+                            <a href="#" class="href">市场总监</a>
+                            <a href="#" class="href">市场推广</a>
+                            <a href="#" class="href">SEO</a>
+                            <a href="#" class="href">品牌经理</a>
+                            <a href="#" class="href">SEM</a>
+                            <a href="#" class="href">商务渠道</a>
+                            <a href="#" class="href">网络营销</a>
+                            <a href="#" class="href">活动策划</a>
+                            <a href="#" class="href">APP推广</a>
+                        </div>
+                            <div class="list">
+                            <a href="#" class="href">销售专员</a>
+                            <a href="#" class="href">销售经理</a>
+                            <a href="#" class="href">客户代表</a>
+                            <a href="#" class="href">销售代表</a>
+                            <a href="#" class="href">BD经理</a>
+                            <a href="#" class="href">大客户销售</a>
+                            <a href="#" class="href">渠道销售</a>
+                            <a href="#" class="href">销售助理</a>
+                            <a href="#" class="href">电话销售</a>
+                            <a href="#" class="href">销售顾问</a>
+                            <a href="#" class="href">商品经理</a>
+                            <a href="#" class="href">广告销售</a>
+                            <a href="#" class="href">网络营销</a>
+                            <a href="#" class="href">营销主管</a>
+                            <a href="#" class="href">销售总监</a>
+                            <a href="#" class="href">商务总监</a>
+                            <a href="#" class="href">城市经理</a>
+                        </div>
+                    </div>
+                    </div>
+                </li>
+                <li class="job-nav__class" onmouseover="javascript:showInfo(7)" onmouseout="hiddenInfo(7)">
+                    <a class="job-nav__class__title">人事/财务/行政<span> &gt </span></a>
+                    <div class="pop" id="personnel" style="top: -280px">
+                        <div class="container">
+                        <h5>人事/财务/行政</h5>
+                        <div class="list">
+                            <a href="#" class="href">人力资源主管</a>
+                            <a href="#" class="href">招聘</a>
+                            <a href="#" class="href">HRBP</a>
+                            <a href="#" class="href">人力资源专员</a>
+                            <a href="#" class="href">培训</a>
+                            <a href="#" class="href">薪资福利</a>
+                            <a href="#" class="href">绩效考核</a>
+                            <a href="#" class="href">人力资源经理</a>
+                            <a href="#" class="href">人力资源总监</a>
+                            <a href="#" class="href">员工关系</a>
+                            <a href="#" class="href">组织发展</a>
+                        </div>
+                            <div class="list">
+                            <a href="#" class="href">会计</a>
+                            <a href="#" class="href">出纳</a>
+                            <a href="#" class="href">财务顾问</a>
+                            <a href="#" class="href">结算</a>
+                            <a href="#" class="href">税务</a>
+                            <a href="#" class="href">风控</a>
+                            <a href="#" class="href">财务经理</a>
+                            <a href="#" class="href">财务主管</a>
+                            <a href="#" class="href">财务分析</a>
+                            <a href="#" class="href">法务专员</a>
+                            <a href="#" class="href">律师</a>
+                            <a href="#" class="href">法律顾问</a>
+                            <a href="#" class="href">法务主管</a>
+                        </div>
+                            <div class="list">
+                            <a href="#" class="href">行政专员</a>
+                            <a href="#" class="href">前台</a>
+                            <a href="#" class="href">行政主管</a>
+                            <a href="#" class="href">经理助理</a>
+                            <a href="#" class="href">后勤</a>
+                            <a href="#" class="href">司机</a>
+                            <a href="#" class="href">行政经理</a>
+                            <a href="#" class="href">行政总监</a>
+                        </div>
+                    </div>
+                    </div>
+                </li>
+                <li>
+                    <a class="job-nav__class__title">全部职类</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -77,6 +431,7 @@
         </div>
     </div>
 </div>
+<div class="footer">—————— 红红红红绿 ——————</div>
 <script>
     function goToDetail(name){
         var post_data={
@@ -91,6 +446,58 @@
                 window.location.href=`analysis/pid=`+data['pid'];
             }
         });
+    }
+    function showInfo(index) {
+        if (index == 0) {
+            document.getElementById("IT").style.display = 'block';
+        }
+        if (index == 1) {
+            document.getElementById("finance").style.display = 'block';
+        }
+        if (index == 2) {
+            document.getElementById("asset").style.display = 'block';
+        }
+        if (index == 3) {
+            document.getElementById("trade").style.display = 'block';
+        }
+        if (index == 4) {
+            document.getElementById("edu").style.display = 'block';
+        }
+        if (index == 5) {
+            document.getElementById("service").style.display = 'block';
+        }
+        if (index == 6) {
+            document.getElementById("market").style.display = 'block';
+        }
+        if (index == 7) {
+            document.getElementById("personnel").style.display = 'block';
+        }
+    }
+    function hiddenInfo(index) {
+        if (index == 0) {
+            document.getElementById("IT").style.display = 'none';
+        }
+        if (index == 1) {
+            document.getElementById("finance").style.display = 'none';
+        }
+        if (index == 2) {
+            document.getElementById("asset").style.display = 'none';
+        }
+        if (index == 3) {
+            document.getElementById("trade").style.display = 'none';
+        }
+        if (index == 4) {
+            document.getElementById("edu").style.display = 'none';
+        }
+        if (index == 5) {
+            document.getElementById("service").style.display = 'none';
+        }
+        if (index == 6) {
+            document.getElementById("market").style.display = 'none';
+        }
+        if (index == 7) {
+            document.getElementById("personnel").style.display = 'none';
+        }
     }
 </script>
 </body>

@@ -28,20 +28,7 @@
 .box1 {
     float: left;
 }
-.prior {
-    display: block;
-    width: 100%;
-    height: 100%;
-    margin-top: 40px;
-    margin-left: 10px;
-    background-color: rgba(85, 88, 90,0.8);
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    border: none;
-    text-align: center;
-    line-height: 80px;
-}
+
 .nav1 .one {
     display: block;
     margin-top: 20px;
@@ -49,7 +36,21 @@
 .tou {
     position: relative;
     width: 250px;
-    height: 80px;
+    height: 54px;
+}
+.prior {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin-top: 60px;
+    margin-left: 10px;
+    background-color: rgba(85, 88, 90,0.8);
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    text-align: center;
+    line-height: 54px;
 }
 .tou ul {
     display: none;
@@ -58,11 +59,11 @@
 .tou ul li a {
     display: block;
     width: 250px;
-    height: 20px;
+    height: 28px;
     background-color: cornflowerblue;
     margin-left: 10px;
     text-align: center;
-    line-height: 20px;
+    line-height: 28px;
     color: #33384e;
     box-sizing: border-box;
     border-bottom: 1px solid #44484e;
@@ -80,7 +81,7 @@
     position: absolute;
     width: 10px;
     height: 10px;
-    top: 32px;
+    top: 15px;
     right: 28px;
     border-right: 2px solid #fff;
     border-bottom: 2px solid #fff;
@@ -96,8 +97,8 @@
 }
 .box3 {
     height: 360px;
-    margin-left: 20px;
-    margin-top: 30px;
+    margin-left: 10px;
+    margin-top: 20px;
     background-color: rgba(85, 88, 90, 0.8);
 }
 .return a {
@@ -117,4 +118,62 @@
     content: '\e903';
     font-family: 'icomoon';
     padding-right: 2px;
+}
+.clearfix:after{ content: ""; clear: both; display: block; }
+.menu{
+    margin-left: 10px;
+    margin-top: 20px;
+    width: 250px;
+    height: 100%;
+    /*margin: 0 auto;*/
+    padding-top: 2px;
+    background: #fff;
+    float: left;
+}
+.menu ul li{ /*height:45px; */
+    line-height: 56px;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+}
+.menu ul li span{
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    padding: 0 20px;
+}
+.menu ul li span i{
+    display: block;
+    height: 20px;
+    width: 20px;
+    background: url(/static/images/arr.png) no-repeat center center;
+    background-size:80% 80%;
+    position: absolute;
+    left: 210px;
+    top: 50%;
+    margin-top: -10px;
+    transition: all 0.3s ease-out;
+    transform: rotate(0deg);
+}
+.menu ul li span i.action{
+    transition: all 0.3s ease-out;
+    transform: rotate(180deg);
+}
+.menu ul li>dl{
+    display: none;
+    padding-left: 35px;
+    background: #d8e7f5;
+}
+.menu ul li>dl a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+    color: #222;
+    text-decoration: none;
+}
+
+a{
+    text-decoration:none;
+    color:#000000;
 }

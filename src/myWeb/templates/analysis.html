@@ -7,43 +7,45 @@
     <link rel="stylesheet" href=" /static/css/initial.css ">
     <link rel="stylesheet" href=" /static/css/analystyle.css ">
     <link rel="stylesheet" href=" /static/css/common.css ">
-    <script type="text/javascript" src="http://lib.baomitu.com/jquery/latest/jquery.min.js"></script>
     <script src="/static/js/echarts.min.js"></script>
+    <script src="/static/js/provinces.js"></script>
+    <script src="/static/js/china.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js" ></script>
 </head>
 <body>
 <div class="banner">
-    <img src="/static/images/analy1.png" alt=""  align="center" width="100%" height="100%">
+    <img src="/static/images/analy1.png" alt="" align="center" width="100%" height="100%">
 </div>
 <div class="box clearfix">
     <!--subnav-->
-    <div class="box1 clearfix">
-        <ul class="nav">
-            <li class=" tou nav1">
-                <a href="#" class="prior one tag">企业分析</a>
-                <ul>
-                    <li><a href="javascript:void(0);" onclick="getData('companySize')">企业规模</a></li>
-                    <li><a href="javascript:void(0);" onclick="getData('companyType')">企业类型</a></li>
-                </ul>
-            </li>
-            <li class=" tou nav2">
-                <a href="javascript:void(0);" onclick="getData('region_number')" class="prior">地区分析</a>
-            </li>
-            <li class="tou nav3">
-                <a href="#" class="prior tag">学历/经验分析</a>
-                <ul >
-                    <li><a href="javascript:void(0);" onclick="getData('education_number')">学历分析</a></li>
-                    <li><a href="javascript:void(0);" onclick="getData('experience_number')">经验分析</a></li>
-                </ul>
-            </li>
-            <li class="tou nav4">
-                <a href="#" class="prior tag">薪资水平分析</a>
-                <ul>
-                    <li><a href="javascript:void(0);" onclick="getData('education_salary')">薪资与学历关系</a></li>
-                    <li><a href="javascript:void(0);" onclick="getData('experience_salary')">薪资与经验关系</a></li>
-                    <li><a href="javascript:void(0);" onclick="getData('region_salary')">薪资与岗位需求关系</a></li>
-                </ul>
-            </li>
-        </ul>
+    <div class="menu clearfix">
+        <ul>
+		<li>
+			<span>企业分析<i class="icon"></i></span>
+			<dl>
+				<dt><a href="javascript:void(0);" onclick="getData('companySize')">企业规模</a></dt>
+				<dt><a href="javascript:void(0);" onclick="getData('companyType')">企业性质</a></dt>
+			</dl>
+		</li>
+		<li>
+			<span><a href="javascript:void(0);" onclick="getData('region_number')">地区分析</a></span>
+		</li>
+		<li>
+			<span>学历/经验分析<i class="icon"></i></span>
+			<dl>
+				<dt><a href="javascript:void(0);" onclick="getData('education_number')">学历分析</a></dt>
+				<dt><a href="javascript:void(0);" onclick="getData('experience_number')">经验分析</a></dt>
+			</dl>
+		</li>
+		<li>
+			<span>薪资水平分析<i class="icon"></i></span>
+			<dl>
+				<dt><a href="javascript:void(0);" onclick="getData('education_salary')">薪资与学历关系</a></dt>
+                <dt><a href="javascript:void(0);" onclick="getData('experience_salary')">薪资与经验关系</a></dt>
+				<dt><a href="javascript:void(0);" onclick="getData('region_salary')">薪资与岗位需求关系</a></dt>
+			</dl>
+		</li>
+	</ul>
     </div>
     <div class="box2" id="box2" align="center"><!--图表展示-->
         <h3>职责词云</h3>
@@ -76,13 +78,13 @@
     <a href="{% url 'index' %}"></a>
 </div>
 <script type="text/javascript">
-
     function getData(analysis_item) {
             var dom=document.getElementById("box2");
             var myChart=echarts.init(dom);
             var option=null;
             var i;
             var newData=[];
+            var temp=[];
             var post_data={
                 "type":analysis_item,
                 "pid":{{ pid }},
@@ -93,7 +95,6 @@
                 data: post_data,
                 success: function (data) {
                     res = JSON.parse(data);
-                    console.log(res.data_x);
                     if(res['marks']==0){
                         option = {
                             title: {
@@ -109,6 +110,12 @@
                                 {
                                     type: 'category',
                                     data: res.data_x,
+                                    axisTick: {
+                                        alignWithLabel: true
+                                    },
+                                    axisLabel: {
+                                        interval:0
+                                    }
                                 }
                             ],
                             tooltip: {
@@ -187,57 +194,71 @@
                             myChart.setOption(option, true);
                         }
                     }else if(res["marks"]==2){
+                        res.data_x.forEach((data,index) => {
+                            //判断属于哪个省份
+                            provinces.forEach((item, index) => {
+                                item.city.forEach((itt, idx) => {
+                                    if (itt.name.search(data) != -1) {
+                                        newData.push (item.name)
+                                    }
+                                })
+                            })
+                        })
+                        for(i=0;i<newData.length;i++){
+                            temp.push({value:res.data_y[i],name:newData[i]});
+                        }
                         option = {
                             title: {
-                                text: '地区分布图表',
+                                text: res['profession']+'各地区需求量',
                                 left: "center",
-                                top:10,
                                 textStyle: {
                                     fontWeight: 'normal',              //标题颜色
                                     color: '#666666',
                                 },
                             },
-                            toolbox: {
-                                feature: {
-                                    magicType: {
-                                        type: ['stack', 'tiled']
+                            tooltip : {
+                                trigger: 'item'
+                            },
+                            legend: {
+                                orient: 'vertical',
+                                left: 'left',
+                                data:['需求量']
+                            },
+                            visualMap: {
+                                min: 0,
+                                max: 2500,
+                                left: 'left',
+                                top: 'bottom',
+                                text:['高','低'],           // 文本，默认为数值文本
+                                calculable : true
+                            },
+                            series : [
+                                {
+                                    name:  '需求量',
+                                    type: 'map',
+                                    mapType: 'china',
+                                    roam: false,
+                                    label: {
+                                        normal: {
+                                            show: false
+                                        },
+                                        emphasis: {
+                                            show: true
+                                        }
                                     },
-                                    dataView: {},
-                                    saveAsImage: {
-                                        pixelRatio: 2
-                                    }
-                                }
-                            },
-                            tooltip: {},
-                            xAxis: {
-                                data: res.data_x,
-                                splitLine: {
-                                    show: false
-                                }
-                            },
-                            yAxis: {
-                            },
-                            series: [{
-                                type: 'bar',
-                                data: res.data_y,
-                                color:'#FF9933',
-                                animationDelay: function (idx) {
-                                    return idx * 10 + 100;
-                                }
-                            }],
-                            animationEasing: 'elasticOut',
-                            animationDelayUpdate: function (idx) {
-                                return idx * 5;
-                            }
+                                    data:temp,
+                                },
+                            ]
                         };
                         ;
                         if (option && typeof option === "object") {
                             myChart.setOption(option, true);
                         }
                     }else if(res["marks"]==3){
+                        console.log(res.data_x)
                         option = {
                             title: {
-                                text: '薪资与地区的关系图表',
+                                text: res['profession']+'岗位需求量排名前20地区的薪资水平状况',
                                 left: "center",
                                 textStyle: {
                                     fontWeight: 'normal',
@@ -314,7 +335,7 @@
                         }
                         option = {
                             title: {
-                                text: '学历分布图表',
+                                text: res['profession']+'岗位各学历要求比例',
                                 left: "center",
                                 top:10,
                                 textStyle: {
@@ -363,7 +384,7 @@
                     }else if(res["marks"]==5){
                         option = {
                             title: {
-                                text: '工作经验分布图表',
+                                text: res['profession']+'岗位工作经验要求',
                                 left: "center",
                                 top:10,
                                 textStyle: {
@@ -405,7 +426,7 @@
                     }else if(res["marks"]==6){
                         option = {
                             title: {
-                                text: '薪资与学历的关系图表',
+                                text: res['profession']+'岗位各学历对应的工资水平',
                                 left: "center",
                                 textStyle: {
                                     fontWeight: 'normal',              //标题颜色
@@ -487,7 +508,7 @@
                     }else if(res["marks"]==7){
                         option = {
                             title: {
-                                text: '薪资与工作经验的关系图表',
+                                text: res['profession']+'各工作经验对应的薪资水平',
                                 left: "center",
                                 textStyle: {
                                     fontWeight: 'normal',              //标题颜色
@@ -572,16 +593,20 @@
                 }
             });
         }
-    var nav=document.querySelector('.nav')
-    var lis=nav.children;
-    for(var i=0;i<lis.length;i++) {
-        lis[i].onmouseover= function () {
-            this.children[1].style.display = 'block';
-        }
-        lis[i].onmouseout= function () {
-            this.children[1].style.display = 'none';
-        }
-    }
+    {#var nav=document.querySelector('.nav')#}
+    {#var lis=nav.children;#}
+    {#for(var i=0;i<lis.length;i++) {#}
+    {#    lis[i].onmouseover= function () {#}
+    {#        this.children[1].style.display = 'block';#}
+    {#    }#}
+    {#    lis[i].onmouseout= function () {#}
+    {#        this.children[1].style.display = 'none';#}
+    {#    }#}
+    $(".menu ul li").click(function(){
+		$(this).find("dl").slideToggle(200).parent().siblings().find("dl").slideUp(200);
+		$(this).find("span i").toggleClass('action').parents().siblings().find("span i").removeClass('action');
+	})
+
 </script>
 </body>
 </html>

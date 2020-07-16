@@ -7,28 +7,82 @@
     <link rel="stylesheet" href=" ../static/css/initial.css ">
     <link rel="stylesheet" href=" ../static/css/predicstyle.css ">
     <link rel="stylesheet" href=" ../static/css/common.css ">
+    <script type="text/javascript" src="http://lib.baomitu.com/jquery/latest/jquery.min.js"></script>
+    <script src="/static/js/echarts.min.js"></script>
 </head>
 <body>
 <div class="banner">
     <img src="/static/images/predic2.png" alt=""  align="center" width="100%" height="100%">
 </div>
-<!--search模块-->
-<div class="search">
-    <input type="search" placeholder="请输入关键词">
-    <button><img src="../static/images/Rectangle4.png" alt="" width="12.5" height="12" align="center"></button>
-</div>
-</div>
+{#<!--search模块-->#}
+{#<div class="search">#}
+{#    <input type="search" placeholder="请输入关键词">#}
+{#    <button><img src="../static/images/Rectangle4.png" alt="" width="12.5" height="12" align="center"></button>#}
+{#</div>#}
+{#</div>#}
 <div class="box">
     <div class="box1"><!--subnav-->
         <ul>
-            <li><button>城市需求预测</button></li>
-            <li><button>薪资变化预测</button></li>
-            <li><button>专业排名预测</button></li>
-            <li><button>岗位排名预测</button></li>
+            <li><button onclick="hiddenCity()" autofocus>薪资变化预测</button></li>
+            <li><button onclick="showCity()">城市需求预测</button></li>
+{#            <li><button>专业排名预测</button></li>#}
+{#            <li><button>岗位排名预测</button></li>#}
         </ul>
     </div>
     <div class="box2"><!--图表展示-->
+        <div id="choice1">
+            <div class='div-wrap'>
+                <span class='select-wrap'>
+                    <select class='select' οnchange='this.parentNode.nextSibling.value=this.value'>
+                        <option>python</option>
+                        <option>PHP</option>
+                        <option>Java</option>
+                        <option>Web前端</option>
+                        <option>UI设计师</option>
+                        <option>Android</option>
+                        <option>算法工程师</option>
+                        <option>数据分析师</option>
+                        <option>数据架构</option>
+                        <option>人工智能</option>
+                    </select>
+                </span>
+                <input class='input' id="pro1" value='python'>
+            </div>
+            <button class="submit1" onclick="gotoSalaryPredict()">OK</button>
+        </div>
+        <div id="choice2">
+            <div class='div-wrap'>
+                <span class='select-wrap'>
+                    <select class='select' οnchange='this.parentNode.nextSibling.value=this.value'>
+                        <option>python</option>
+                        <option>PHP</option>
+                        <option>Java</option>
+                    </select>
+                </span>
+                <input class='input' id="pro2" value='python'>
+            </div>
+            <div class='div-wrap-city'>
+                <span class='select-wrap'>
+                    <select class='select' οnchange='this.parentNode.nextSibling.value=this.value'>
+                        <option>北京</option>
+                        <option>上海</option>
+                        <option>南京</option>
+                        <option>广州</option>
+                        <option>合肥</option>
+                        <option>武汉</option>
+                        <option>济南</option>
+                        <option>深圳</option>
+                        <option>广东</option>
+                    </select>
+                </span>
+                <input class='input' id='city' value='北京'>
+            </div>
+            <button class="submit2" onclick="gotoReqPredict()">OK</button>
+        </div>
 
+        <div class="content" id="content">
+
+        </div>
     </div>
     <div class="box3"><!--个人中心部分-->
         <div class="self">
@@ -53,5 +107,235 @@
 <div class="return">
     <a href="{% url 'index' %}"><img src="/static/images/shape1.png" align="center" width="13" height="10" ></a>
 </div>
+<script type="text/javascript">
+
+    function hiddenCity() {
+        document.getElementById("choice2").style.display = 'none';
+        document.getElementById("choice1").style.display = 'block';
+    }
+    function showCity() {
+        document.getElementById("choice2").style.display = 'block';
+        document.getElementById("choice1").style.display = 'none';
+    }
+    function gotoSalaryPredict() {
+        var dom=document.getElementById("content");
+        var myChart=echarts.init(dom);
+        var prof=document.getElementById("pro1").value;
+        var post_data={
+            "pro":prof,
+        };
+        $.ajax({
+            url: '/salary_forecast/',
+            type: "POST",
+            data: post_data,
+            success: function (data) {
+                res = JSON.parse(data);
+                var option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        position: function (pt) {
+                            return [pt[0], '10%'];
+                        }
+                    },
+                    title: {
+                        text: prof+'岗位薪资预测',
+                        left: "center",
+                        padding:15,
+                        textStyle: {
+                            fontWeight: 'normal',
+                            color: '#666666',
+                        },
+                    },
+                    grid: {
+                        left: '0%',
+                        right: '18%',
+                        bottom: '12%',
+                        containLabel: true
+                    },
+                    visualMap: {
+                        top: 10,
+                        right: 10,
+                        pieces: [{
+                            gt: 0,
+                            lte: 5000,
+                            color: '#096'
+                        }, {
+                            gt: 5000,
+                            lte: 8000,
+                            color: '#ffde33'
+                        }, {
+                            gt: 8000,
+                            lte: 10000,
+                            color: '#ff9933'
+                        }, {
+                            gt: 10000,
+                            lte: 15000,
+                            color: '#cc0033'
+                        }, {
+                            gt: 15000,
+                            lte:20000,
+                            color: '#660099'
+                        }, {
+                            gt: 20000,
+                            color: '#7e0023'
+                        }],
+                        outOfRange: {
+                            color: '#999'
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: res.date
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: '薪资 /元',
+                        boundaryGap: [0, '100%']
+                    },
+                    dataZoom: [{
+                        type: 'inside',
+                        start: 0,
+                        end: 10
+                    },
+                    {
+                        start: 0,
+                        end: 10,
+                        handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                        handleSize: '80%',
+                        handleStyle: {
+                            color: '#fff',
+                            shadowBlur: 3,
+                            shadowColor: 'rgba(0, 0, 0, 0.6)',
+                            shadowOffsetX: 2,
+                            shadowOffsetY: 2
+                        }
+                    }
+                    ],
+                    series: [
+                        {
+                            name: '薪资',
+                            type: 'line',
+                            smooth: true,
+                            symbol: 'none',
+                            sampling: 'average',
+                            itemStyle: {
+                                color: 'rgb(178, 34 ,34)'
+                            },
+                            markLine: {
+                                silent: true,
+                                data: [{
+                                    yAxis: 5000
+                                }, {
+                                    yAxis: 10000
+                                }, {
+                                    yAxis: 15000
+                                }, {
+                                    yAxis: 20000
+                                }, {
+                                    yAxis: 25000
+                                }]
+                            },
+                            data: res.salary,
+                        }
+                    ]
+                };
+                ;
+                if (option && typeof option === "object") {
+                    myChart.setOption(option, true);
+                }
+            }
+        });
+    }
+    function gotoReqPredict() {
+        var dom=document.getElementById("content");
+        var myChart=echarts.init(dom);
+        var prof=document.getElementById("pro2").value;
+        var city=document.getElementById("city").value;
+        var post_data={
+            "pro":prof,
+            "city":city,
+        };
+        $.ajax({
+            url: '/region_forecast/',
+            type: "POST",
+            data: post_data,
+            success: function (data) {
+                res = JSON.parse(data);
+                var option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        position: function (pt) {
+                            return [pt[0], '10%'];
+                        }
+                    },
+                    title: {
+                        text: prof+'岗位'+city+'地区需求预测',
+                        left: "center",
+                        padding:15,
+                        textStyle: {
+                            fontWeight: 'normal',
+                            color: '#666666',
+                        },
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: res.date
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: '需求 / %',
+                        boundaryGap: [0, '100%']
+                    },
+                    dataZoom: [{
+                        type: 'inside',
+                        start: 0,
+                        end: 10
+                    }, {
+                        start: 0,
+                        end: 10,
+                        handleIcon: 'M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
+                        handleSize: '80%',
+                        handleStyle: {
+                            color: '#fff',
+                            shadowBlur: 3,
+                            shadowColor: 'rgba(0, 0, 0, 0.6)',
+                            shadowOffsetX: 2,
+                            shadowOffsetY: 2
+                        }
+                    }],
+                    series: [
+                        {
+                            name: '需求',
+                            type: 'line',
+                            smooth: true,
+                            symbol: 'none',
+                            sampling: 'average',
+                            itemStyle: {
+                                color: 'rgb(0, 70, 131)'
+                            },
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: 'rgb(0, 158, 68)'
+                                }, {
+                                    offset: 1,
+                                    color: 'rgb(0, 70, 131)'
+                                }])
+                            },
+                            data: res.req,
+                        }
+                    ]
+                };
+                ;
+                if (option && typeof option === "object") {
+                    myChart.setOption(option, true);
+                }
+            }
+        });
+    }
+
+</script>
 </body>
 </html>

@@ -2,6 +2,13 @@ import pandas as pd
 import numpy as np
 import re
 import jieba
+import datetime
+
+#发布时间处理
+def split_date(temp):
+    month=temp[0:2]
+    day=temp[3:5]
+    return str(datetime.datetime.now().year)+'-'+month+'-'+day
 
 def split_money(x):
     try:
@@ -52,7 +59,7 @@ def dataClean(filename):
     # 缺失值处理
     # print(employ.isnull().sum())
     employ.education.fillna('不限学历', inplace=True)
-    employ.work_experience.fillna('不做要求', inplace=True)
+    employ.work_experience.fillna('无需经验', inplace=True)
     # 公司地址，不需要且缺失比较多，直接删除
     employ.drop(['address'], axis=1, inplace=True)
     # 薪水清洗
@@ -63,6 +70,10 @@ def dataClean(filename):
     employ.dropna(how='any', subset=['wages', 'company_size', 'company_type'], inplace=True)
     # print(employ.isnull().sum())
     # print(employ.shape)
+
+    # 发布时间处理
+    employ['release_date'] = employ['release_date'].apply(split_date)
+
     index_time = employ['wages'].str[-1].isin(['年', '月'])
     index_money = employ['wages'].str[-3].isin(['万', '千'])
     employ = employ[index_time & index_money]
@@ -79,7 +90,7 @@ def dataClean(filename):
         stopword = f.read()
 
     stopword = stopword.split()
-    stopword = stopword + ["任职", "职位", " ","职责", "负责"]
+    stopword = stopword + ["任职", "职位", " ", "职责", "负责", "相关", "熟悉", "工作", "职能", "关键字", "负责", "具备", "以上学历", "熟练", "学习",'开发','熟练掌握']
     employ["point_information"] = employ["point_information"].str[2:-2].apply(lambda x: x.lower()).apply(
         lambda x: "".join(x)) \
         .apply(jieba.lcut).apply(lambda x: [i for i in x if i not in stopword])
@@ -87,8 +98,8 @@ def dataClean(filename):
 
     df_job = employ[
         ['position', 'company', 'company_type', 'company_size', 'city', 'salay_min', 'salay_max', 'salay_mean',
-         'education', 'work_experience', 'industry', 'point_information']]
-    df_job.columns = ['工作', '公司', '公司性质', '公司规模', '城市', '最低薪', '最高薪', '平均薪', '学历', '工作经验', '行业', '职责']
+         'education', 'work_experience', 'industry', 'point_information','release_date']]
+    df_job.columns = ['工作', '公司', '公司性质', '公司规模', '城市', '最低薪', '最高薪', '平均薪', '学历', '工作经验', '行业', '职责','发布时间']
     to_file='cleanData/'+filename+'_clean.csv'
     df_job.to_csv(to_file,encoding="utf_8_sig")
 
